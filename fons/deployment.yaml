@@ -1,0 +1,31 @@
+# HARLEM LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: west-landing-deployment
+  namespace: tiendas-rhino-2
+  labels:
+    app: west-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: west-landing
+  template:
+    metadata:
+      labels:
+        app: west-landing
+    spec:
+      containers:
+        - name: west-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:west
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80

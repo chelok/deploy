@@ -1,0 +1,31 @@
+# FANS LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fans-landing-deployment
+  namespace: tiendas-rhino-2
+  labels:
+    app: fans-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fans-landing
+  template:
+    metadata:
+      labels:
+        app: fans-landing
+    spec:
+      containers:
+        - name: fans-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:fans
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
