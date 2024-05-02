@@ -1,0 +1,31 @@
+# VALITO LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valito-landing-deployment
+  namespace: tiendas-rhino-2
+  labels:
+    app: valito-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valito-landing
+  template:
+    metadata:
+      labels:
+        app: valito-landing
+    spec:
+      containers:
+        - name: harlem-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:valito
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
