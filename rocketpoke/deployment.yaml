@@ -1,0 +1,31 @@
+# ROCKET POKE LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocketpoke-landing-deployment
+  namespace: tiendas-rhino-2
+  labels:
+    app: rocketpoke-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocketpoke-landing
+  template:
+    metadata:
+      labels:
+        app: rocketpoke-landing
+    spec:
+      containers:
+        - name: harlem-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:rocketpoke
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
