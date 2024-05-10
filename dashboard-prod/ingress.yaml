@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rhino-admin
+  namespace: rhino-admin
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    spec.ingressClassName: "gce"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  # tls:
+  #   - hosts: 
+  #     - rhino-admin.com
+  #     secretName: ssl-dashboard-prod-secret
+  rules:
+  - host: rhino-admin.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dashboard-prod-service
+            port:
+              number: 80
