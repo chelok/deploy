@@ -1,0 +1,31 @@
+# FANS LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-dev-deployment
+  namespace: rhino-admin
+  labels:
+    app: dashboard-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-dev
+  template:
+    metadata:
+      labels:
+        app: dashboard-dev
+    spec:
+      containers:
+        - name: dashboard-dev
+          image: southamerica-west1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
