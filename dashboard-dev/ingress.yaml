@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rhino-admin
+  namespace: rhino-admin
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    spec.ingressClassName: "gce"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  # tls:
+  #   - hosts: 
+  #     - buceo.harlem.com.uy
+  #     secretName: ssl-buceo-harlem-secret
+  rules:
+  - host: dashboard.kocursoft.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dashboard-dev-service
+            port:
+              number: 80
