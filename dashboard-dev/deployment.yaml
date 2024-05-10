@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: dashboard-dev
-          image: southamerica-west1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
           imagePullPolicy: Always
           resources:
             requests:
