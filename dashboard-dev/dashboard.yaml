@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rhino-admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dashboard-dev
+  name: dashboard-dev-service
+  namespace: rhino-admin
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: dashboard-dev
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dashboard-dev
+  name: dashboard-dev-deployment
+  namespace: rhino-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-dev
+  template:
+    metadata:
+      labels:
+        app: dashboard-dev
+    spec:
+      containers:
+      - image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
+        imagePullPolicy: Always
+        name: dashboard-dev
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    spec.ingressClassName: gce
+  name: rhino-admin
+  namespace: rhino-admin
+spec:
+  rules:
+  - host: dev.rhino-admin.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: dashboard-dev-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

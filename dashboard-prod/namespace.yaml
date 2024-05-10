@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rhino-admin
+  name: rhino-admin-prod

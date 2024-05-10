@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dashboard-prod-deployment
-  namespace: rhino-admin
+  namespace: rhino-admin-prod
   labels:
     app: dashboard-prod
 spec:

@@ -8,10 +8,10 @@ metadata:
     spec.ingressClassName: "gce"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-  # tls:
-  #   - hosts: 
-  #     - dev.rhino-admin.com
-  #     secretName: ssl-dashboard-dev-secret
+  tls:
+    - hosts: 
+      - dev.rhino-admin.com
+      secretName: ssl-dashboard-dev-secret
   rules:
   - host: dev.rhino-admin.com
     http:
