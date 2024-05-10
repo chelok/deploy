@@ -10,10 +10,10 @@ metadata:
 spec:
   # tls:
   #   - hosts: 
-  #     - buceo.harlem.com.uy
-  #     secretName: ssl-buceo-harlem-secret
+  #     - dev.rhino-admin.com
+  #     secretName: ssl-dashboard-dev-secret
   rules:
-  - host: dashboard.kocursoft.com
+  - host: dev.rhino-admin.com
     http:
       paths:
       - path: /
