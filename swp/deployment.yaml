@@ -1,24 +1,24 @@
-# HARLEM LANDING #
+# SWP LANDING #
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: west-landing-deployment
+  name: swp-landing-deployment
   namespace: tiendas-rhino-2
   labels:
-    app: west-landing
+    app: swp-landing
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: west-landing
+      app: swp-landing
   template:
     metadata:
       labels:
-        app: west-landing
+        app: swp-landing
     spec:
       containers:
-        - name: west-landing
-          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:west
+        - name: swp-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:swp
           imagePullPolicy: Always
           resources:
             requests:
