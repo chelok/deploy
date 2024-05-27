@@ -1,0 +1,31 @@
+# LA CAMPEONA LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lacampeona-landing-deployment
+  namespace: tiendas-rhino-2
+  labels:
+    app: lacampeona-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacampeona-landing
+  template:
+    metadata:
+      labels:
+        app: lacampeona-landing
+    spec:
+      containers:
+        - name: lacampeona-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:lacampeona
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
