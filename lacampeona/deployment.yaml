@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: lacampeona-landing-deployment
-  namespace: tiendas-rhino-2
+  namespace: tiendas-rhino-3
   labels:
     app: lacampeona-landing
 spec:
