@@ -7,11 +7,15 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     spec.ingressClassName: "gce"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   tls:
     - hosts: 
       - dev.rhino-admin.com
       secretName: ssl-dashboard-dev-secret
+    - hosts:
+      - www.handylink.uy
+      secretName: ssl-dashboard-handy-secret
   rules:
   - host: dev.rhino-admin.com
     http:
@@ -21,5 +25,15 @@ spec:
         backend:
           service:
             name: dashboard-dev-service
+            port:
+              number: 80
+  - host: www.handylink.uy
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dashboard-handy-service
             port:
               number: 80

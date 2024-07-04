@@ -1,4 +1,4 @@
-# FANS LANDING #
+# DASHBAORD RHINO DEV #
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +18,39 @@ spec:
     spec:
       containers:
         - name: dashboard-dev
-          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:6dd64f6d948e70eb0a70c75ad7b3b5563b5c7493
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+# DASHBOARD HANDY #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-handy-deployment
+  namespace: rhino-admin
+  labels:
+    app: dashboard-handy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-handy
+  template:
+    metadata:
+      labels:
+        app: dashboard-handy
+    spec:
+      containers:
+        - name: dashboard-handy
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-handy/dashboard-handy:80d25c57deac29b99570001f9972f30c66ca89fd
           imagePullPolicy: Always
           resources:
             requests:

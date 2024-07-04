@@ -1,3 +1,4 @@
+# DASHBAORD RHINO DEV #
 apiVersion: "v1"
 kind: "Service"
 metadata:
@@ -12,4 +13,21 @@ spec:
     targetPort: 80
   selector:
     app: dashboard-dev
+  type: "NodePort"
+---
+# DASHBOARD HANDY #
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "dashboard-handy-service"
+  namespace: rhino-admin
+  labels:
+    app: dashboard-handy
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  selector:
+    app: dashboard-handy
   type: "NodePort"

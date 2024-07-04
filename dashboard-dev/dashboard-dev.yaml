@@ -19,6 +19,22 @@ spec:
     app: dashboard-dev
   type: NodePort
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dashboard-handy
+  name: dashboard-handy-service
+  namespace: rhino-admin
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: dashboard-handy
+  type: NodePort
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -37,9 +53,40 @@ spec:
         app: dashboard-dev
     spec:
       containers:
-      - image: southamerica-west1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:0.0.1
+      - image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-dev/dashboard-dev:6dd64f6d948e70eb0a70c75ad7b3b5563b5c7493
         imagePullPolicy: Always
         name: dashboard-dev
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dashboard-handy
+  name: dashboard-handy-deployment
+  namespace: rhino-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-handy
+  template:
+    metadata:
+      labels:
+        app: dashboard-handy
+    spec:
+      containers:
+      - image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-handy/dashboard-handy:80d25c57deac29b99570001f9972f30c66ca89fd
+        imagePullPolicy: Always
+        name: dashboard-handy
         ports:
         - containerPort: 80
         resources:
@@ -54,14 +101,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: gce
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  name: dashboard-dev
+    spec.ingressClassName: gce
+  name: rhino-admin
   namespace: rhino-admin
 spec:
   rules:
-  - host: dashboard.kocursoft.com
+  - host: dev.rhino-admin.com
     http:
       paths:
       - backend:
@@ -71,3 +119,20 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  - host: www.handylink.uy
+    http:
+      paths:
+      - backend:
+          service:
+            name: dashboard-handy-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - dev.rhino-admin.com
+    secretName: ssl-dashboard-dev-secret
+  - hosts:
+    - www.handylink.uy
+    secretName: ssl-dashboard-handy-secret
