@@ -1,0 +1,31 @@
+# SUSHI APP LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sushiapp-landing-deployment
+  namespace: tiendas-rhino-3
+  labels:
+    app: sushiapp-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sushiapp-landing
+  template:
+    metadata:
+      labels:
+        app: sushiapp-landing
+    spec:
+      containers:
+        - name: sushiapp-landing
+          image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:sushiapp
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
