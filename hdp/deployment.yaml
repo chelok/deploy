@@ -1,0 +1,31 @@
+# LA CAMPEONA LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdp-landing-deployment
+  namespace: tiendas-rhino-4
+  labels:
+    app: hdp-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hdp-landing
+  template:
+    metadata:
+      labels:
+        app: hdp-landing
+    spec:
+      containers:
+      - name: hdp-landing
+        image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:hdp
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
