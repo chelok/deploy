@@ -1,0 +1,31 @@
+# DOÑA MARTINA LANDING #
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dona-martina-landing-deployment
+  namespace: tiendas-rhino-5
+  labels:
+    app: dona-martina-landing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dona-martina-landing
+  template:
+    metadata:
+      labels:
+        app: dona-martina-landing
+    spec:
+      containers:
+      - name: harlem-landing
+        image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/landing-rhino/landing-rhino:dona-martina
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
