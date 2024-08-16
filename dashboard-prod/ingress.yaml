@@ -9,9 +9,9 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   tls:
-    - hosts: 
-      - rhino-admin.com
-      secretName: ssl-dashboard-prod-secret
+  - hosts:
+    - rhino-admin.com
+    secretName: ssl-dashboard-prod-secret
   rules:
   - host: rhino-admin.com
     http:
