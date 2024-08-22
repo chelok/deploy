@@ -1,0 +1,16 @@
+# DASHBAORD HANDY PROD #
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "dashboard-handy-prod-service"
+  namespace: rhino-admin-prod
+  labels:
+    app: dashboard-handy-prod
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  selector:
+    app: dashboard-handy-prod
+  type: "NodePort"

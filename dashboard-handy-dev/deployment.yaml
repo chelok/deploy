@@ -1,0 +1,31 @@
+# DASHBOARD HANDY DEV#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-handy-deployment
+  namespace: rhino-admin
+  labels:
+    app: dashboard-handy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-handy
+  template:
+    metadata:
+      labels:
+        app: dashboard-handy
+    spec:
+      containers:
+      - name: dashboard-handy
+        image: southamerica-east1-docker.pkg.dev/diesel-talon-387022/dashboard-handy/dashboard-handy:c04b83dfd53553210613a4c0f0fb71f7b18e0f97
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
