@@ -10,12 +10,12 @@ metadata:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   tls:
-    - hosts: 
-      - dev.rhino-admin.com
-      secretName: ssl-dashboard-dev-secret
-    - hosts:
-      - www.handylink.uy
-      secretName: ssl-dashboard-handy-secret
+  - hosts:
+    - dev.rhino-admin.com
+    secretName: ssl-dashboard-dev-secret
+    # - hosts:
+    #   - mitienda.arriba.uy
+    #   secretName: ssl-dashboard-handy-secret
   rules:
   - host: dev.rhino-admin.com
     http:
@@ -27,7 +27,7 @@ spec:
             name: dashboard-dev-service
             port:
               number: 80
-  - host: www.handylink.uy
+  - host: mitienda.arriba.uy
     http:
       paths:
       - path: /
